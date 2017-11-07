@@ -14,15 +14,13 @@ def collapse[A](l: List[A]): A
 1.3. Esta interfaz, en matemáticas se llama `Monoid`, así que utilizaremos este nombre, pero no te asustes, ya sabes que "sólo" sirve para reducir colecciones de elementos
 
 ```scala
-scala> trait Monoid[A] {
-     |   def empty: A
-     |   def combine(other: A): A
-     | }
-defined trait Monoid
+trait Monoid[A] {
+  def empty: A
+  def combine(other: A): A
+}
 
-scala> def collapse[A](l: List[A])(wrap: A => Monoid[A]): A =
-     |   l.foldLeft[A](???)((a1, a2) => wrap(a1).combine(a2))
-collapse: [A](l: List[A])(wrap: A => Monoid[A])A
+def collapse[A](l: List[A])(wrap: A => Monoid[A]): A =
+  l.foldLeft[A](???)((a1, a2) => wrap(a1).combine(a2))
 ```
 
 2. Vaya! Houston, tenemos un problema. No podemos dar un elemento neutro/inicial a nuestro `foldLeft`, por que no tenemos NINGÚN VALOR disponible. Para poder acceder al método `empty` necesitamos llamar a la función `wrap`, pero no tenemos ningún valor de tipo `A`. Esta función `wrap` tiene una limitación clara, solo puedes tener un `Monoid` si tienes un `A`, es decir, la interfaz está acoplada a valores. Como el elemento neutro conceptualmente no está ligado a ningún valor concreto, no tiene sentido el método `empty` que hemos puesto en la interfaz `Monoid`.
@@ -30,19 +28,17 @@ collapse: [A](l: List[A])(wrap: A => Monoid[A])A
 3. Vale, parece que lo que necesitamos es una interfaz, pero que esté desacoplada de los valores, y que su única relación sea con el tipo concreto con el que está parametrizado.
 
 ```scala
-scala> trait Monoid[A] {
-     |   val empty: A
-     |   def combine(a1: A, a2: A): A
-     | }
-defined trait Monoid
+trait Monoid[A] {
+  val empty: A
+  def combine(a1: A, a2: A): A
+}
 ```
 
 4. ¡Acabamos de descubrir las Typeclasses! como ves es simplemente una interfaz, al igual que antes, pero no está pensada para ser heredada, si no para formar un módulo completamente independiente. Veamos que pasa si en vez del adaptador utilizamos la typeclass
 
 ```scala
-scala> def collapse[A](l: List[A])(monoid: Monoid[A]): A =
-     |   l.foldLeft(monoid.empty)(monoid.combine)
-collapse: [A](l: List[A])(monoid: Monoid[A])A
+def collapse[A](l: List[A])(monoid: Monoid[A]): A =
+  l.foldLeft(monoid.empty)(monoid.combine)
 ```
 
 5. Como vemos, en este caso no necesitamos un `A` para acceder a la interfaz `Monoid`, podemos acceder a ella directamente, ya que es un módulo concreto e independiente.

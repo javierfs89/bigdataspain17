@@ -13,7 +13,7 @@ def collapse[A](l: List[A]): A
 1.2. Empty: Nos ofrece un valor neutro para el caso en el que no haya elementos que combinar
 1.3. Esta interfaz, en matemáticas se llama `Monoid`, así que utilizaremos este nombre, pero no te asustes, ya sabes que "sólo" sirve para reducir colecciones de elementos
 
-```tut
+```tut:silent
 trait Monoid[A] {
   def empty: A
   def combine(other: A): A
@@ -27,7 +27,7 @@ def collapse[A](l: List[A])(wrap: A => Monoid[A]): A =
 
 3. Vale, parece que lo que necesitamos es una interfaz, pero que esté desacoplada de los valores, y que su única relación sea con el tipo concreto con el que está parametrizado.
 
-```tut
+```tut:silent
 trait Monoid[A] {
   val empty: A
   def combine(a1: A, a2: A): A
@@ -36,7 +36,7 @@ trait Monoid[A] {
 
 4. ¡Acabamos de descubrir las Typeclasses! como ves es simplemente una interfaz, al igual que antes, pero no está pensada para ser heredada, si no para formar un módulo completamente independiente. Veamos que pasa si en vez del adaptador utilizamos la typeclass
 
-```tut
+```tut:silent
 def collapse[A](l: List[A])(monoid: Monoid[A]): A =
   l.foldLeft(monoid.empty)(monoid.combine)
 ```

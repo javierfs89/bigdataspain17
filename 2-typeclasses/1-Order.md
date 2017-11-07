@@ -11,34 +11,31 @@ def greater[A](l: List[A]): Option[A]
 1. Empezamos con una interfaz OOP de toda la vida que nos permite comparar/ordenar elementos. En Scala las interfaces pueden estar parcialmente (o totalmente) implementadas.
 
 ```scala
-scala> trait Order[A] {
-     |   def compare(other: A): Int
-     | 
-     |   def >(other: A): Boolean = compare(other) > 0
-     |   def ===(other: A): Boolean = compare(other) == 0
-     |   def <(other: A): Boolean = compare(other) < 0
-     | }
-defined trait Order
+trait Order[A] {
+  def compare(other: A): Int
+
+  def >(other: A): Boolean = compare(other) > 0
+  def ===(other: A): Boolean = compare(other) == 0
+  def <(other: A): Boolean = compare(other) < 0
+}
 ```
 
 2. Vamos a tratar de implementar ahora la función `greater` exigiendo que los elementos de la lista tienen que ser subtipos de la interfaz `Order` que acabamos de definir
 
 ```scala
-scala> def greatest[A <: Order[A]](l: List[A]): Option[A] =
-     |   l.foldLeft(Option.empty[A]) {
-     |     case (Some(max), a) if a < max => Option(max)
-     |     case (_, a) => Option(a)
-     |   }
-greatest: [A <: Order[A]](l: List[A])Option[A]
+def greatest[A <: Order[A]](l: List[A]): Option[A] =
+  l.foldLeft(Option.empty[A]) {
+    case (Some(max), a) if a < max => Option(max)
+    case (_, a) => Option(a)
+  }
 ```
 
 3. Vamos a comprobar que esta función es correcta, para ello vamos a crearnos un tipo `Person` que implemente la interfaz `Order`.
 
 ```scala
-scala> case class Person(name: String, age: Int) extends Order[Person] {
-     |   def compare(other: Person) = age - other.age
-     | }
-defined class Person
+case class Person(name: String, age: Int) extends Order[Person] {
+  def compare(other: Person) = age - other.age
+}
 ```
 
 4. Ya tenemos todas las piezas del puzzle, solo hace falta ejecutar la función con una lista de personas y ver si el resultado es el esperado.
@@ -65,12 +62,11 @@ scala> greatest(List(2, 3, 1))
 6. En este caso, la OOP nos proporciona otra técnica para resolver este problema, y no es otra que los adaptadores. Para que nuestra función encaje con todos esos tipos fuera de nuestro control podemos crear un adaptador, y redefinir dicha función en terminos del adaptador
 
 ```scala
-scala> def greatest[A](l: List[A])(wrap: A => Order[A]): Option[A] =
-     |   l.foldLeft(Option.empty[A]) {
-     |     case (Some(max), a) if wrap(a) < max => Option(max)
-     |     case (_, a) => Option(a)
-     |   }
-greatest: [A](l: List[A])(wrap: A => Order[A])Option[A]
+def greatest[A](l: List[A])(wrap: A => Order[A]): Option[A] =
+  l.foldLeft(Option.empty[A]) {
+    case (Some(max), a) if wrap(a) < max => Option(max)
+    case (_, a) => Option(a)
+  }
 ```
 
 7. Parece que lo hemos conseguido, ahora deberíamos ser capaces de ordenar listas de enteros, cuando antes no podiamos

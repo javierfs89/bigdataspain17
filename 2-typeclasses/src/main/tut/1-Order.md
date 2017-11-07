@@ -10,7 +10,7 @@ def greater[A](l: List[A]): Option[A]
 
 1. Empezamos con una interfaz OOP de toda la vida que nos permite comparar/ordenar elementos. En Scala las interfaces pueden estar parcialmente (o totalmente) implementadas.
 
-```tut
+```tut:silent
 trait Order[A] {
   def compare(other: A): Int
 
@@ -22,7 +22,7 @@ trait Order[A] {
 
 2. Vamos a tratar de implementar ahora la función `greater` exigiendo que los elementos de la lista tienen que ser subtipos de la interfaz `Order` que acabamos de definir
 
-```tut
+```tut:silent
 def greatest[A <: Order[A]](l: List[A]): Option[A] =
   l.foldLeft(Option.empty[A]) {
     case (Some(max), a) if a < max => Option(max)
@@ -32,7 +32,7 @@ def greatest[A <: Order[A]](l: List[A]): Option[A] =
 
 3. Vamos a comprobar que esta función es correcta, para ello vamos a crearnos un tipo `Person` que implemente la interfaz `Order`.
 
-```tut
+```tut:silent
 case class Person(name: String, age: Int) extends Order[Person] {
   def compare(other: Person) = age - other.age
 }
@@ -52,7 +52,7 @@ greatest(List(2, 3, 1))
 
 6. En este caso, la OOP nos proporciona otra técnica para resolver este problema, y no es otra que los adaptadores. Para que nuestra función encaje con todos esos tipos fuera de nuestro control podemos crear un adaptador, y redefinir dicha función en terminos del adaptador
 
-```tut
+```tut:silent
 def greatest[A](l: List[A])(wrap: A => Order[A]): Option[A] =
   l.foldLeft(Option.empty[A]) {
     case (Some(max), a) if wrap(a) < max => Option(max)

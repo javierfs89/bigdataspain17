@@ -77,3 +77,6 @@ contains(List(
   Person("Berto", 38),
   Person("Carlos", 18)))(Person("Carlos", 18))(personEq(stringEq, intEq))
 ```
+
+| [<< Prev: 3-Show.md](3-Show.md) | [Up: README.md ^^](README.md) |
+| :--- | ---: |

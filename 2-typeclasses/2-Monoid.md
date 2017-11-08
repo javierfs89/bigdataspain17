@@ -83,3 +83,6 @@ res5: String = hello, world!
 9. Por cierto, no es casualidad que la typeclass `Monoid` encaje tan bien con la función `foldLeft`, están íntimamente relacionadas.
 
 10. Aún hay muchas mejoras sintácticas que se podrían conseguir, pero están fuera del objetivo del curso, ellas son implícitos, context bounds, sintaxis, instancias derivadas.
+
+| [<< Prev: 1-Order.md](1-Order.md) | [Next: 3-Exercise1-Show.md >>](3-Show.md) |
+| :--- | ---: |

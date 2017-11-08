@@ -71,6 +71,5 @@ greatest(List(2, 3, 1))(IntOrder(_))
 
 8. Esta solución tiene un problema de eficiencia tal y como está, ya que por cada elemento tenemos que "inyectarlo" en el adaptador, pero no nos vamos a centrar en ese problema por ahora. Damos el problema por solucionado, nuestra función `greatest` está definida de una manera genérica y podemos utilizarla con cualquier tipo siempre que demos una implementación para la función `compare`.
 
-|| <!-- empty table header -->
-|:--:| <!-- table header/body separator with center formatting -->
-| N/A - [Next: 2-Monoid.md](2-Monoid.md) | <!-- cell gets column's alignment -->
+| [^^ Up: README.md](README.md) | [Next: 2-Monoid.md >>](2-Monoid.md) |
+| :--- | ---: |

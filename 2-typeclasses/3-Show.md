@@ -30,13 +30,13 @@ scala> val intShow: Show[Int] =
      |   new Show[Int] {
      |     def show(a: Int): String = a.toString
      |   }
-intShow: Show[Int] = $anon$1@449c67f4
+intShow: Show[Int] = $anon$1@224051ce
 
 scala> val stringShow: Show[String] =
      |   new Show[String] {
      |     def show(a: String): String = a
      |   }
-stringShow: Show[String] = $anon$1@4ee9c391
+stringShow: Show[String] = $anon$1@22e616c2
 ```
 
 4. Ya podemos ejecutar las funciones con distintos parámetros de tipo `Int` y `String`.
@@ -70,3 +70,6 @@ personShow: (SS: Show[String], IS: Show[Int])Show[Person]
 scala> thirdString(List(Person("Ana", 28), Person("Berto", 38), Person("Carlos", 18)))(personShow(stringShow, intShow))
 res4: Option[String] = Some(Carlos - 18)
 ```
+
+| [<< Prev: 2-Monoid.md](2-Monoid.md) | [Next: 4-Exercise2-Eq.md >>](4-Eq.md) |
+| :--- | ---: |

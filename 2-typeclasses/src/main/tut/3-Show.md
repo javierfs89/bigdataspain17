@@ -53,3 +53,6 @@ def personShow(SS: Show[String], IS: Show[Int]): Show[Person] =
 
 thirdString(List(Person("Ana", 28), Person("Berto", 38), Person("Carlos", 18)))(personShow(stringShow, intShow))
 ```
+
+| [<< Prev: 2-Monoid.md](2-Monoid.md) | [Next: 4-Exercise2-Eq.md >>](4-Eq.md) |
+| :--- | ---: |

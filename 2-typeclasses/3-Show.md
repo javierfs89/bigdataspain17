@@ -30,13 +30,13 @@ scala> val intShow: Show[Int] =
      |   new Show[Int] {
      |     def show(a: Int): String = a.toString
      |   }
-intShow: Show[Int] = $anon$1@404f7868
+intShow: Show[Int] = $anon$1@2e49e494
 
 scala> val stringShow: Show[String] =
      |   new Show[String] {
      |     def show(a: String): String = a
      |   }
-stringShow: Show[String] = $anon$1@22651398
+stringShow: Show[String] = $anon$1@457c7208
 ```
 
 4. Ya podemos ejecutar las funciones con distintos parámetros de tipo `Int` y `String`.

@@ -45,6 +45,36 @@ def collapse[A](l: List[A])(monoid: Monoid[A]): A =
 
 6. Como ventaja adicional, esta solución no tiene los problemas de eficiencia que teniamos con los adaptadores, ya que no se están creando objetos intermedios extra. La typeclass es simplement un conjunto de funciones/valores.
 
-7. Por cierto, no es casualidad que la typeclass `Monoid` encaje tan bien con la función `foldLeft`, están íntimamente relacionadas.
+7. Al igual que con los adaptadores, tenemos que dar implementación a los métodos abstractos de la interfaz. Vamos a dar instancias para `Int` y `String`
 
-8. Aún hay muchas mejoras sintácticas que se podrían conseguir, pero están fuera del objetivo del curso, ellas son implícitos, context bounds, sintaxis, instancias derivadas.
+```tut:silent
+val intSumMonoid: Monoid[Int] =
+  new Monoid[Int] {
+    val empty: Int = 0
+    def combine(i1: Int, i2: Int): Int = i1 + i2
+  }
+
+val intMulMonoid: Monoid[Int] =
+  new Monoid[Int] {
+    val empty: Int = 1
+    def combine(i1: Int, i2: Int): Int = i1 * i2
+  }
+
+val stringMonoid: Monoid[String] =
+  new Monoid[String] {
+    val empty: String = ""
+    def combine(s1: String, s2: String): String = s1 + s2
+  }
+```
+
+8. Como vemos, podemos tener distintas instancias para el mismo tipo, no hay ningún problema. Ya solo queda ejecutar las funciones genéricas con estas instancias que acabamos de implementar.
+
+```tut
+collapse(List(1, 2, 3, 4))(intSumMonoid)
+collapse(List(1, 2, 3, 4))(intMulMonoid)
+collapse(List("hello", ", ", "world!"))(stringMonoid)
+```
+
+9. Por cierto, no es casualidad que la typeclass `Monoid` encaje tan bien con la función `foldLeft`, están íntimamente relacionadas.
+
+10. Aún hay muchas mejoras sintácticas que se podrían conseguir, pero están fuera del objetivo del curso, ellas son implícitos, context bounds, sintaxis, instancias derivadas.

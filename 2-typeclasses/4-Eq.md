@@ -49,13 +49,13 @@ scala> val intEq: Eq[Int] =
      |   new Eq[Int] {
      |     def ===(i1: Int, i2: Int): Boolean = i1 == i2
      |   }
-intEq: Eq[Int] = $anon$1@2dc41ad8
+intEq: Eq[Int] = $anon$1@295b06a0
 
 scala> val stringEq: Eq[String] =
      |   new Eq[String] {
      |     def ===(s1: String, s2: String): Boolean = s1 == s2
      |   }
-stringEq: Eq[String] = $anon$1@2b422834
+stringEq: Eq[String] = $anon$1@402713e0
 ```
 
 4. Ya podemos ejecutar las funciones con distintos parámetros de tipo `Int` y `String`.

@@ -4,6 +4,15 @@ Queremos implementar la función greater, que coge una lista de elementos y devu
 
 ```scala
 def greater[A](l: List[A]): Option[A]
+
+scala> greatest(List(Person("Ana", 28), Person("Berto", 35), Person("Carlos", 18)))
+res0: Option[Person] = Some(Person(Berto,35))
+
+scala> greatest(List(28, 35, 1))
+res1: Option[Int] = Some(35)
+
+scala> greatest(List("Berto", "Carlos", "Ana"))
+res2: Option[String] = Some("Carlos")
 ```
 
 0. Esta función, como se puede comprobar, es inimplementable tal y como está. En el mundo OOP tradicional podemos utilizar una interfaz para dotar a nuestro tipo genérico `A` de la información necesaria para implementarla. Vamos a ver...

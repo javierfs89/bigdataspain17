@@ -4,6 +4,12 @@ Queremos implementar la función collapse, que coge una lista de elementos y dev
 
 ```scala
 def collapse[A](l: List[A]): A
+
+scala> collapse(List(1, 2, 3, 4))
+res0: Int = 10
+
+scala> collapse(List("hello", ", ", "world!"))
+res1: String = hello, world!
 ```
 
 0. Al igual que el problema anterior, no es posible implementar está función tal y como está. Sin embargo, ya hemos visto que los adaptadores nos pueden servir para solucionar este tipo de problemas, así que vamos a intentarlo.
